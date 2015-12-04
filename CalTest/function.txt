@@ -1,0 +1,3 @@
+define addThree(a,b,c)(a+b+c);
+define addFun(a)(a+a);
+addThree(1, 2, 3) + addFun(1);
