@@ -1,8 +1,8 @@
 //
-//	declare of class Function
-//	
-//	class Function store the info of function
+//	Declare of class Function
 //
+//	Every thing is function
+//	
 //	2015/12/3	Leelddd
 //
 
@@ -18,20 +18,23 @@ using namespace std;
 class Function;
 class Function{
 public:
-	//define a simple double Function
+	//create a simple Function with a double value
 	Function(const double &ans){ answer = ans; isSimpleFunc = true; setPriority(); }
+
 	//create a Function named n
 	Function(const string &n = "") :name(n){ setPriority(); }
 
-	
-	//add Function in this function
+	//add Function into this Function
 	void addFunction(Function *fun){ fun_vector.push_back(fun); }
 	void addFunction(double num){ fun_vector.push_back(&Function(num)); }
 	//add argument of the function to set the computational formula
-	void addArgFun(const string arg){ argfun_vector.push_back(arg); }
+	void addArgFun(const string &arg){ argfun_vector.push_back(arg); }
 	//add operator
 	void addOper(const string &oper){ oper_vector.push_back(oper); }
-	void addFunQue(Function *fun){ fun_deque.push_back(fun); }
+	void addFunQue(Function *fun){ 
+		Function *f = new Function(*fun);
+		fun_deque.push_back(f); 
+	}
 
 	//set the argument list
 	void setArgVec(const vector<string> &args){ arg_vector = args; }
@@ -42,9 +45,12 @@ public:
 	//function call
 	double callFunction();
 	double callFunction(vector<double> &arg_vector);
+
 	void setName(const string &n){ name = n; }
 	const string &getName(){ return name; }
-	const double getAnswer();
+	vector<string> getArgVec() {
+		return arg_vector;
+}
 
 private:
 	string name;

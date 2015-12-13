@@ -1,24 +1,44 @@
 #include"Function.h"
 #include"stringAnalysis.h"
+#include<assert.h>
 //public method of class Function
 
 double Function::callFunction(vector<double> &arg)
 {
-	auto arg_iter = arg_vector.begin();
-	auto value_iter = arg.begin();
-	while (value_iter != arg.end())
+	//link value list and arg list into arg_value(map)
+	if (arg.size() < arg_vector.size())
 	{
-		arg_value[*arg_iter++] = *value_iter++;
+		cout << "you should put in more values to init the argument" << endl;
 	}
+	else
+	{
+		auto arg_iter = arg_vector.begin();
+		auto value_iter = arg.begin();
+		while (value_iter != arg.end())
+		{
+			arg_value[*arg_iter++] = *value_iter++;
+		}
+	}
+	assert(arg_value.size() == arg_vector.size());//test
+	
+	//s:(a,b);a;1;	4 kinds of conditions
 	for (auto s : argfun_vector)
 	{
-		//if just a argument
+		//if just a argument, number or argument
 		if (s.find_first_of('(') == s.npos)
 		{
-			Function *f = new Function(arg_value[s]);
+			Function *f;
+			if (isNum(s))
+			{
+				f = new Function(stod(s));
+			}
+			else
+			{
+				f = new Function(arg_value[s]);
+			}
 			fun_vector.push_back(f);
 		}
-		//if s is a function
+		//if s is a function 
 		else
 		{
 			s.erase(s.begin());
@@ -27,10 +47,16 @@ double Function::callFunction(vector<double> &arg)
 			vector<double> sub_func_arg_val;
 			for (auto s : sub_func_arg)
 			{
-				sub_func_arg_val.push_back(arg_value[s]);
+				if (isNum(s))
+				{
+					sub_func_arg_val.push_back(stod(s));
+				}
+				else
+				{
+					sub_func_arg_val.push_back(arg_value[s]);
+				}	
 			}
 			fun_deque.front()->callFunction(sub_func_arg_val);
-			//fun_deque.front()->setArgValue(sub_func_arg_val);
 			fun_vector.push_back(fun_deque.front());
 			fun_deque.pop_front();
 		}

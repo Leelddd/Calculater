@@ -3,49 +3,30 @@
 #include<string>
 #include<map>
 #include"Function.h"
-#include"Calculater.h"
+#include"Compiler.h"
 using namespace std;
 
 void testFun() 
 {
-	Function f;
-	vector<string> arg{ "a", "b", "c" };
-	f.setArgVec(arg);
-	f.addArgFun("a");
-	f.addArgFun("b");
-	f.addArgFun("c");
-	f.addOper("+");
-	f.addOper("+");
-	vector<double> args{ 1, 2,3 };
-	cout << f.callFunction(args);
-	/*Function f;
-	vector<string> arg{ "a", "b" };
-	f.setArgVec(arg);
-	f.addArgFun("a");
-	f.addArgFun("b");
-	f.addOper("+");
-	vector<double> args{ 1, 2 };
-	
-	Function f2;
-	vector<string> arg2{ "c", "d" };
-	f2.setArgVec(arg2);
-	f2.addArgFun("(c,d)");
-	f2.addFunQue(&f);
+	string codefile1("function.txt");
+	Compiler testCom1(codefile1);
+	cout << endl << testCom1.callMain();
 
-	Function f3;
-	vector<string> arg3{ "a", "b" };
-	f3.setArgVec(arg3);
-	f3.addArgFun("(a,b)");
-	f3.addFunQue(&f2);
-	cout << f3.callFunction(args);*/
-	
+	string codefile2("function2.txt");
+	Compiler testCom2(codefile2);
+	cout << endl << testCom2.callMain();
+
+	string codefile3("function3.txt");
+	Compiler testCom3(codefile3);
+	cout << endl << testCom3.callMain();
+
+	string codefile4("function4.txt");
+	Compiler testCom4(codefile4);
+	cout << endl << testCom4.callMain();
 }
 
 int main()
 {
 	testFun();
-	string codefile("function2.txt");
-	Calculater cal(codefile);
-	cout << cal.callMain();
 	getchar();
 }

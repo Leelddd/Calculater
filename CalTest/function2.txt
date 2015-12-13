@@ -1,3 +1,2 @@
-define add(a,b)(a+b);
-define muladd(a,b)(add(a,b)+a);
-muladd(1,2);
+define add(a,b)(a+b+5);
+add(1,2);

@@ -1,0 +1,2 @@
+define one(a)(a*(a+a));
+one(3);
