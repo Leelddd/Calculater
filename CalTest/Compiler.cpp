@@ -103,8 +103,17 @@ void Compiler::formulaAnalysis(string &str, Function &newFunc)
 		{
 			Function undefiner;
 			undefiner.setArgVec(newFunc.getArgVec());
-			while (*iter_right != ')')
+			stack<char> para;
+			para.push('(');
+			while (!para.empty())
+			{
 				++iter_right;
+				if (*iter_right == '(')
+					para.push('(');
+				else if (*iter_right == ')')
+					para.pop();
+			}
+				
 			formulaAnalysis(cutStr(iter_left+1, iter_right), undefiner);
 			undefiners.push_back(undefiner);
 			//get the newFunc's argument list, like(a,b)

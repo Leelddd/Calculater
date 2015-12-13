@@ -1,0 +1,3 @@
+define add(a)(a+a);
+define double(b)((add(b)+(1+add(b))));
+double(4);
